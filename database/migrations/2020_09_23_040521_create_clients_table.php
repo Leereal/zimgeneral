@@ -33,9 +33,10 @@ class CreateClientsTable extends Migration
             $table->integer('membership_status')->default(1);
             $table->integer('card_status')->default(1);    
             $table->unsignedBigInteger('referrer_id')->nullable(); 
+            $table->unsignedBigInteger('principal_id')->nullable(); 
             $table->unsignedBigInteger('branch_id');  
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('plan_id')->nullable(); 
+            $table->unsignedBigInteger('plan_id'); 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('group_id')->nullable();
             $table->integer('status')->default(1);

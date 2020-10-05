@@ -36,6 +36,24 @@ class Client extends Model
     }
 
     /**
+     * Get the Principal for the client.
+     */
+    
+    public function principal()
+    {
+        return $this->belongsTo(Client::class, 'principal_id', 'id');
+    }
+
+    /**
+     * Get the Dependents for the client.
+     */
+    public function dependents()
+    {
+        return $this->hasMany(Client::class, 'principal_id', 'id');
+    }
+
+
+    /**
      * Get the Branch for the client.
      */
     public function branch()

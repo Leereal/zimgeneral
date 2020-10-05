@@ -19,6 +19,10 @@ class DatabaseSeeder extends Seeder
             BankSeeder::class,
             CurrencySeeder::class,
             RoleSeeder::class,
+            PaymentMethodSeeder::class,
+            LimitSeeder::class,
+            PremiumSeeder::class,
+            LimitPlanSeeder::class,
         ]);
         \App\Models\Group::factory(20)->create();
         \App\Models\User::factory(60)->create();
@@ -31,6 +35,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\SPBankDetail::factory(30)->create();
         \App\Models\ClientBankDetail::factory(100)->create();
         \App\Models\CompanyBankDetail::factory(10)->create();
+        \App\Models\Payment::factory(200)->create();
         
     }
 }

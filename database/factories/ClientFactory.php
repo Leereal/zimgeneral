@@ -42,7 +42,8 @@ class ClientFactory extends Factory
             'branch_id' => mt_rand(1,5), 
             'user_id' => mt_rand(1,20), 
             'plan_id' => mt_rand(1,8),
-            'referrer_id' => mt_rand(1,15), 
+            'referrer_id' => mt_rand(1,15),
+            'principal_id' => mt_rand(1,30), 
             'created_by' => mt_rand(1,15), 
             'group_id' => mt_rand(1,20), 
             'created_at'=>now()->subDays(rand(5,210))    

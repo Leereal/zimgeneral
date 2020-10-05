@@ -6,25 +6,26 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Employee extends Model
+class LimitPlan extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory,SoftDeletes;
+
+    protected $table = 'limit_plan';
 
     /**
-     * Get the Branch for the Employee.
+     * Get the Plan for the Limit.
      */
-    public function branch()
+    public function plan()
     {
-        return $this->belongsTo('App\Models\Branch');
+        return $this->belongsTo('App\Models\Plan');
     }
 
     /**
-     * Get the login details of employee.
+     * Get the Limit for the Plan.
      */
-    public function user()
+    public function limit()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Limit');
     }
 
     public function scopeActive($query)

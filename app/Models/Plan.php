@@ -19,6 +19,22 @@ class Plan extends Model
         return $this->hasMany('App\Models\Client');
     }
 
+    /**
+     * The limits that belong to the plan.
+     */
+    public function limits()
+    {
+        return $this->belongsToMany('App\Models\Limit');
+    }
+
+    /**
+     * Get the premium record associated with the plan.
+     */
+    public function premium()
+    {
+        return $this->hasOne('App\Models\Premium');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 1);

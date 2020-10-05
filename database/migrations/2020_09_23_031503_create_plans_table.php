@@ -20,7 +20,9 @@ class CreatePlansTable extends Migration
             $table->integer('last_number')->default(0);
             $table->integer('dependent_last_number')->default(0);        
             // $table->unsignedBigInteger('limit_id')->nullable();
+            $table->integer('status')->default(1);
             $table->timestamps();
+            $table->softDeletes();
                        
             // $table->foreign('limit_id')->references('id')->on('limits')->onDelete('cascade');
         });

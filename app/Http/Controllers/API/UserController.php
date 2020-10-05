@@ -16,21 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::active()->latest()->paginate();
+        $users = User::active()->latest()->get();
         
         return UserResource::collection($users);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    }   
 
     /**
      * Display the specified resource.
@@ -40,20 +29,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+        $user = User::find($id);             
+        return new UserResource($user);
+    }   
 
     /**
      * Remove the specified resource from storage.
@@ -63,6 +41,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        if($user->delete()){
+            return new UserResource($user);   
+        }
     }
 }
