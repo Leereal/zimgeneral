@@ -25,6 +25,7 @@ class EmployeeResource extends JsonResource
             'job_title'     => $this->job_title,
             'branch'        => $this->branch->name ?? "",
             'roles'         => RoleResource::collection($this->user->roles)->map->only('name'), 
+            'status'        => $this->status == 1 ? 'Active' : 'Inactive',
         ];
     }
 }

@@ -16,6 +16,7 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            //$table->string('employee_code');// Generated
             $table->string('firstname');
             $table->string('surname'); 
             $table->string('cellphone');

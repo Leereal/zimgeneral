@@ -20,7 +20,8 @@ class ClientBankDetailResource extends JsonResource
             'bank'                  => $this->bank->name,            
             'account_number'        => $this->account_number,      
             'branch_code'           => $this->branch_code,
-            'account_holder_name'   => $this->account_holder_name,                    
+            'account_holder_name'   => $this->account_holder_name,   
+            'medical_aid_number'   => $this->client->medical_aid_number,                 
         ];
     }
 }

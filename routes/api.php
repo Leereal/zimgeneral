@@ -10,6 +10,7 @@ use App\Http\Controllers\API\EmployeeController;
 use App\Http\Controllers\API\GroupController;
 use App\Http\Controllers\API\LimitController;
 use App\Http\Controllers\API\LimitPlanController;
+use App\Http\Controllers\API\PassportAuthController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\PaymentMethodController;
 use App\Http\Controllers\API\PlanController;
@@ -32,26 +33,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-Route::apiResources([
-    'users'                     => UserController::class,   
-    'roles'                     => RoleController::class,
-    'branches'                  => BranchController::class,
-    'employees'                 => EmployeeController::class,
-    'service-providers'         => SPController::class,
-    'groups'                    => GroupController::class,
-    'plans'                     => PlanController::class,   
-    'clients'                   => ClientController::class, 
-    'banks'                     => BankController::class,
-    'currencies'                => CurrencyController::class,
-    'client-bank-details'       => ClientBankDetailController::class,
-    'sp-bank-details'           => SPBankDetailController::class,
-    'company-bank-details'      => CompanyBankDetailController::class,
-    'payments'                  => PaymentController::class,
-    'payment-methods'           => PaymentMethodController::class, 
-    'limits'                    => LimitController::class,
-    'limitplans'                => LimitPlanController::class,
-    'premiums'                  => PremiumController::class,         
-]);
+Route::post('register', [PassportAuthController::class, 'register'])->name('register');
+Route::post('login', [PassportAuthController::class, 'login'])->name('login');
+
+Route::get('user/profile', [UserProfileController::class, 'show'])->name('profile');
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::group([], function () {
+    Route::apiResources([
+        'users'                     => UserController::class,
+        'roles'                     => RoleController::class,
+        'branches'                  => BranchController::class,
+        'employees'                 => EmployeeController::class,
+        'service-providers'         => SPController::class,
+        'groups'                    => GroupController::class,
+        'plans'                     => PlanController::class,
+        'clients'                   => ClientController::class,
+        'banks'                     => BankController::class,
+        'currencies'                => CurrencyController::class,
+        'client-bank-details'       => ClientBankDetailController::class,
+        'sp-bank-details'           => SPBankDetailController::class,
+        'company-bank-details'      => CompanyBankDetailController::class,
+        'payments'                  => PaymentController::class,
+        'payment-methods'           => PaymentMethodController::class,
+        'limits'                    => LimitController::class,
+        'limitplans'                => LimitPlanController::class,
+        'premiums'                  => PremiumController::class,
+    ]);
+});

@@ -17,7 +17,8 @@ class BankResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,            
-            'avatar'    => $this->avatar,// must display picture   
+            'avatar'    => $this->avatar,// must display picture  
+            'status'    => $this->status == 1 ? 'Active' : 'Inactive',  
         ];
     }
 }

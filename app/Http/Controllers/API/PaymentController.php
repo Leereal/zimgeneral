@@ -17,7 +17,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        return PaymentResource::collection(Payment::latest()->paginate(25));
+        return PaymentResource::collection(Payment::latest()->get());
     }
 
     /**

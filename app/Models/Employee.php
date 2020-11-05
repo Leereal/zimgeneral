@@ -11,6 +11,7 @@ class Employee extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $guarded =[];
     /**
      * Get the Branch for the Employee.
      */

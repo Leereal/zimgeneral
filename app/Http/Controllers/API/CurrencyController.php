@@ -16,7 +16,7 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        $currencies = Currency::active()->latest()->get();
+        $currencies = Currency::latest()->get();
         
         return CurrencyResource::collection($currencies);
     }

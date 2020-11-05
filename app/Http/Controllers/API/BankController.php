@@ -16,7 +16,7 @@ class BankController extends Controller
      */
     public function index()
     {
-        $banks = Bank::active()->latest()->get();
+        $banks = Bank::latest()->get();
         
         return BankResource::collection($banks);
     }

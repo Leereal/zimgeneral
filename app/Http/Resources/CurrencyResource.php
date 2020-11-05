@@ -17,7 +17,8 @@ class CurrencyResource extends JsonResource
         return [
             'id'        => $this->id,
             'name'      => $this->name,            
-            'symbol'    => $this->symbol,   
+            'symbol'    => $this->symbol,
+            'status'        => $this->status == 1 ? 'Active' : 'Inactive',
         ];
     }
 }
