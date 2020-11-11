@@ -61,5 +61,9 @@ Route::group([], function () {
         'limits'                    => LimitController::class,
         'limitplans'                => LimitPlanController::class,
         'premiums'                  => PremiumController::class,
+        
     ]);
+    Route::put('change-password', [PassportAuthController::class, 'change_password'])->name('changePass');
+
+    Route::get('clients/{id}', [ClientController::class, 'show'])->name('client');
 });

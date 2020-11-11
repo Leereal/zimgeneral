@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EmployeeResource;
+use App\Models\Branch;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -29,22 +30,21 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([               
-            'user_id'   => ['required','integer'],
+        $request->validate([   
             'firstname' => ['required', 'string', 'max:255'],
             'surname'   => ['required', 'string', 'max:255'],
             'cellphone' => ['required', 'string', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:7', 'max:30'],
             'job_title' => ['required', 'string', 'max:255'],
-            'branch_id' => 'required|integer',           
+            'branch' => 'required|integer',           
         ]);
 
-        $employee             =   new Employee;
-        $employee->user_id    =   $request->user_id;
-        $employee->branch_id  =   $request->branch_id;
-        $employee->firstname  =   $request->firstname;
-        $employee->surname    =   $request->surname;
-        $employee->cellphone  =   $request->cellphone;
-        $employee->job_title  =   $request->job_title;
+        $employee                   =   new Employee;
+        $employee->employee_code    =   strtoupper(substr(Branch::where('id',$request->branch)->value('name'),0,3).rand(100,999));
+        $employee->branch_id        =   $request->branch;
+        $employee->firstname        =   $request->firstname;
+        $employee->surname          =   $request->surname;
+        $employee->cellphone        =   $request->cellphone;
+        $employee->job_title        =   $request->job_title;
         if($employee->save()){
             return new EmployeeResource($employee);
         }
@@ -71,16 +71,16 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([        
+        $request->validate([   
             'firstname' => ['required', 'string', 'max:255'],
             'surname'   => ['required', 'string', 'max:255'],
             'cellphone' => ['required', 'string', 'regex:/^([0-9\s\-\+\(\)]*)$/', 'min:7', 'max:30'],
             'job_title' => ['required', 'string', 'max:255'],
-            'branch_id' => 'required|integer',              
+            'branch'    => 'required|integer',           
         ]);
 
         $employee             =   Employee::findOrFail($id);
-        $employee->branch_id  =   $request->branch_id;
+        $employee->branch_id  =   $request->branch;
         $employee->firstname  =   $request->firstname;
         $employee->surname    =   $request->surname;
         $employee->cellphone  =   $request->cellphone;

@@ -7,6 +7,7 @@ use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class PassportAuthController extends Controller {
     /**
@@ -56,6 +57,29 @@ class PassportAuthController extends Controller {
           
         } else {
             return response()->json( ['error' => 'Unauthorised'], 401 );
+        }
+    }
+
+    
+    public function change_password(Request $request)
+    {
+        $user = auth('api')->user();
+         
+        $request->validate([
+            'password' => 'required|min:8',
+            'repeatPassword' => 'required|same:password',
+            'old_password' => ['required', function ($attribute, $value, $fail) use ($user) {
+                if (!Hash::check($value, $user->password)) {
+                    return $fail(__('The current password is incorrect.'));
+                }
+            }],
+        ]);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        if ($user->save()) {
+            return response()->json(['message' => 'Password Change successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Failed to change password'], 401);
         }
     }
 }

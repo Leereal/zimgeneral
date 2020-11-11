@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BankResource;
 use App\Models\Bank;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Image;
 
 class BankController extends Controller
 {
@@ -31,15 +33,24 @@ class BankController extends Controller
     {
         $request->validate([
             'name'      => 'required|string', 
-            'avatar'    => 'required|string',                 
+            'avatar'    => 'required|image:jpeg,png,jpg,gif,svg'               
         ]);
 
-        $bank        =   new Bank;
-        $bank->name  =   $request->name;
-        $bank->avatar  =   $request->avatar;
-        if($bank->save()){
-            return new BankResource($bank);
+        if($request->avatar){
+
+            $extension = explode('/', mime_content_type($request->avatar))[1];
+            $name = $request->name.".".$extension;
+            Image::make($request->avatar)->save(public_path('images/bank/').$name);
+            $request->merge(['avatar' => $name]);
+           
         }
+ 
+        // $bank        =   new Bank;
+        // $bank->name  =   $request->name;
+        // $bank->avatar  =   $request->avatar;
+        // if($bank->save()){
+        //     return new BankResource($bank);
+        // }
     }
 
     /**

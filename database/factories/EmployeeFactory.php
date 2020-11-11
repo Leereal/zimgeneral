@@ -23,6 +23,7 @@ class EmployeeFactory extends Factory
     public function definition()
     {
         return [
+            'employee_code' => rand(100000,9999999),   
             'firstname' => $this->faker->firstName,
             'surname' => $this->faker->lastName, 
             'cellphone'=>$this->faker->phoneNumber,
